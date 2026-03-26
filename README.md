@@ -1,38 +1,138 @@
 # 🎲 The Game Codex
-A fully offline RAG-powered board game rules assistant built with Streamlit, LangChain, ChromaDB, and Ollama.
 
-**Supported Games:** UNO · Monopoly · Monopoly Deal · Catan · Root · Betrayal at House on the Hill · Sushi Go! · Pandemic · Ticket to Ride · Risk
+The Game Codex is a fully local Retrieval-Augmented Generation (RAG) system that answers board game rule questions using official rulebooks.
 
----
-
-## Setup
-
-**Requirements:** Python 3.11.9, [Ollama](https://ollama.com/download)
-
-### 1. Create a virtual environment
-In VS Code, create a `.venv` using Python 3.11.9.
-
-### 2. Pull Ollama models
-```bash
-ollama pull phi3:mini
-ollama pull nomic-embed-text
-```
-
-### 3. Build the vector database
-Open `GameCodex.ipynb`, select the `.venv` kernel, and run all cells in order. This installs dependencies, loads the 10 rulebook PDFs from the `pdfs/` folder, and creates the `chroma_db/` vector database.
-
-> ⚠️ The embedding step (Cell 6) may take a few minutes. Only needs to be run once.
-
-### 4. Launch the app
-```bash
-streamlit run app.py
-```
+Instead of flipping through rulebooks mid-game, users can ask questions in natural language and get instant, grounded answers.
 
 ---
 
-## Adding Custom Rulebooks
-Drop additional PDFs into the `pdfs/` folder, delete `chroma_db/`, and re-run the notebook from Cell 3.
+## 🚀 Features
+
+- Supports 10 board games out of the box  
+- Fully local — no APIs or cloud dependencies  
+- Answers grounded in rulebooks using RAG  
+- Per-game filtering to prevent cross-game confusion  
+- Conversational chat with short-term memory  
+- Fast retrieval using Max Marginal Relevance (MMR)  
 
 ---
 
-*Built by The Mickey Mavericks*
+## 🎮 Supported Games
+
+- UNO  
+- Monopoly  
+- Monopoly Deal  
+- Catan  
+- Root  
+- Betrayal at House on the Hill  
+- Sushi Go!  
+- Pandemic  
+- Ticket to Ride  
+- Risk  
+
+---
+
+## 🧠 How It Works
+
+- Rulebook PDFs are loaded  
+- Text is split into chunks  
+- Chunks are converted into embeddings  
+- Stored in ChromaDB  
+- Relevant chunks are retrieved using MMR  
+- A local LLM generates the final answer  
+
+At query time:
+- Only the selected game's rules are searched  
+- Recent chat history is included for context  
+- The response is generated conversationally  
+
+---
+
+## 🧱 Tech Stack
+
+- Streamlit — UI  
+- LangChain — orchestration  
+- ChromaDB — vector database  
+- Ollama — local LLM runtime  
+- phi3:mini — chat model  
+- nomic-embed-text — embeddings  
+
+---
+
+## ⚙️ Setup Instructions
+
+- Clone the repository:
+
+    git clone https://github.com/YOUR_USERNAME/game-codex.git  
+    cd game-codex  
+
+- Create a virtual environment:
+
+    python -m venv .venv  
+    .\.venv\Scripts\activate  
+
+- Install dependencies:
+
+    pip install -r requirements.txt  
+
+- Install Ollama:  
+  https://ollama.com/download  
+
+- Pull required models:
+
+    ollama pull phi3:mini  
+    ollama pull nomic-embed-text  
+
+- Create a `pdfs/` folder and add rulebooks:
+
+    pdfs/  
+        uno_official.pdf  
+        monopoly_official.pdf  
+        catan_official.pdf  
+
+- Build the vector database:
+
+    python scripts/build_chroma.py  
+
+- Run the app:
+
+    streamlit run app.py  
+
+---
+
+## 💬 Example Queries
+
+- Can you stack Draw 2 in UNO?  
+- What happens if you land on a mortgaged property in Monopoly?  
+- How does the robber work in Catan?  
+
+---
+
+## 📁 Project Structure
+
+    game-codex/
+    │
+    ├── app.py
+    ├── README.md
+    ├── requirements.txt
+    ├── .gitignore
+    │
+    ├── scripts/
+    │   └── build_chroma.py
+    │
+    ├── pdfs/
+    └── chroma_db/
+
+---
+
+## 📌 Notes
+
+- Runs completely offline after setup  
+- `chroma_db/` is not included in the repo and must be built locally  
+- Add new games by placing PDFs in `pdfs/` and rebuilding  
+
+---
+
+## 👨‍💻 Authors
+
+Perseus99
